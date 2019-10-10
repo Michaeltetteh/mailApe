@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
-from mailinglist import urls
-from user import urls
+import mailinglist.urls
+import user.urls
 
 
 urlpatterns = [

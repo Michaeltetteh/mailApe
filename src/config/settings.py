@@ -20,7 +20,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'user',
-    # 'mailinglist',
+    'mailinglist',
     'crispy_forms',
     'markdownify',
 
