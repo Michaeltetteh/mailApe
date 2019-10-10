@@ -26,12 +26,20 @@ class MailingList(models.Model):
 
 
 class Subscriber(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4,
-                          editable=False),
-    email = models.EmailField(),
-    confirmed = models.BooleanField(default=False),
-    mailing_list = models.ForeignKey(to=MailingList,
-                                     on_delete=models.CASCADE),
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    email = models.EmailField()
+    confirmed = models.BooleanField(default=False)
+    mailing_list = models.ForeignKey(to=MailingList, on_delete=models.CASCADE)
 
     class Meta:
         unique_together = ['email', 'mailing_list', ]
+
+
+class Message(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4,
+                          editable=False),
+    mailing_list = models.ForeignKey(to=MailingList, on_delete=models.CASCADE),
+    subject = models.CharField(max_length=140),
+    body = models.TextField()
+    started = models.DateTimeField(default=None, null=True),
+    finished = models.DateTimeField(default=None, null=True)
