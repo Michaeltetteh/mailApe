@@ -23,3 +23,15 @@ class MailingList(models.Model):
 
     def user_can_use_mailinglist(self):
         return user == self.owner
+
+
+class Subscriber(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4,
+                          editable=False),
+    email = models.EmailField(),
+    confirmed = models.BooleanField(default=False),
+    mailing_list = models.ForeignKey(to=MailingList,
+                                     on_delete=models.CASCADE),
+
+    class Meta:
+        unique_together = ['email', 'mailing_list', ]
