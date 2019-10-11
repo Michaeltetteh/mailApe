@@ -7,10 +7,10 @@ from django.urls import reverse
 
 class MailingList(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4,
-                          editable=False),
-    name = models.CharField(max_length=140),
+                          editable=False)
+    name = models.CharField(max_length=140)
     owner = models.ForeignKey(to=settings.AUTH_USER_MODEL,
-                              on_delete=models.CASCADE),
+                              on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -37,9 +37,9 @@ class Subscriber(models.Model):
 
 class Message(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4,
-                          editable=False),
-    mailing_list = models.ForeignKey(to=MailingList, on_delete=models.CASCADE),
-    subject = models.CharField(max_length=140),
+                          editable=False)
+    mailing_list = models.ForeignKey(to=MailingList, on_delete=models.CASCADE)
+    subject = models.CharField(max_length=140)
     body = models.TextField()
-    started = models.DateTimeField(default=None, null=True),
+    started = models.DateTimeField(default=None, null=True)
     finished = models.DateTimeField(default=None, null=True)

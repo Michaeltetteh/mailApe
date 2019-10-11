@@ -2,15 +2,16 @@ from django import forms
 from mailinglist.models import (
     MailingList,
     Subscriber,
-    Message
+    Message,
 )
+from django.contrib.auth import get_user_model
 
 
 class SubscriberForm(forms.ModelForm):
     mailing_list = forms.ModelChoiceField(
         widget=forms.HiddenInput,
         queryset=MailingList.objects.all(),
-        disable=True,
+        disabled=True,
     )
 
     class Meta:
@@ -22,7 +23,7 @@ class MessageForm(forms.ModelForm):
     mailing_list = forms.ModelChoiceField(
         widget=forms.HiddenInput,
         queryset=MailingList.objects.all(),
-        disable=True,
+        disabled=True,
     )
 
     class Meta:
@@ -34,7 +35,7 @@ class MailingListForm(forms.ModelForm):
     mailing_list = forms.ModelChoiceField(
         widget=forms.HiddenInput,
         queryset=get_user_model().objects.all(),
-        disable=True,
+        disabled=True,
     )
 
     class Meta:
