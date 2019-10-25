@@ -4,8 +4,10 @@ from django.views.generic import (
     ListView,
     CreateView
 )
+from django.urls import reverse_lazy
 from mailinglist.models import MailingList
 from mailinglist.forms import MailingListForm
+from mailinglist.mixins import UserCanUseMailingList
 
 
 class MailingListView(LoginRequiredMixin, ListView):
@@ -13,7 +15,7 @@ class MailingListView(LoginRequiredMixin, ListView):
         return MailingList.objects.filter(owner=self.request.user)
 
 
-class CreateMailingListVie(LoginRequiredMixin, CreateView):
+class CreateMailingListView(LoginRequiredMixin, CreateView):
     form_class = MailingListForm
     template_name = 'mailinglist/mailinglist_form.html'
 
@@ -21,3 +23,9 @@ class CreateMailingListVie(LoginRequiredMixin, CreateView):
         return {
             'owner': self.request.user.id,
         }
+
+
+class DeleteMailingListView(LoginRequiredMixin, UserCanUseMailingList,DeleteView):
+    model = MailingList
+    success_url = reverse_lazy('mailinglist:mailinglist_list')
+
