@@ -8,9 +8,11 @@ from django.views.generic import (
 )
 from django.urls import reverse_lazy
 from mailinglist.models import MailingList
-from mailinglist.forms import MailingListForm
+from mailinglist.forms import (
+    MailingListForm,
+    SubscriberForm,
+)
 from mailinglist.mixins import UserCanUseMailingList
-
 
 class MailingListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
@@ -33,4 +35,7 @@ class DeleteMailingListView(LoginRequiredMixin, UserCanUseMailingList,DeleteView
 
 class MailingListDetailView(LoginRequiredMixin,UserCanUseMailinglist,DetailView):
     model = MailingList
-    
+
+class SubscribeToMailingListView(CreateView):
+    form_class = SubscriberForm
+    template_name = 'mailinglist/subscriber_form.html'
