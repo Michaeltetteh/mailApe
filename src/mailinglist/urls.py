@@ -24,6 +24,10 @@ urlpatterns = [
         view.MailingListDetailView.as_view(),
         name="manage_mailinglist"
     ),
-    
+    path(
+        '<uuid:mailing_list>/subscribe',
+        views.SubscribeToMailingListView.as_view(),
+        name='subscribe'
+    ),
     
 ]
