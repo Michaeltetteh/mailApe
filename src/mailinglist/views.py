@@ -6,7 +6,7 @@ from django.views.generic import (
     DeleteView,
     DetailView
 )
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy,reverse
 from mailinglist.models import MailingList
 from mailinglist.forms import (
     MailingListForm,
@@ -39,3 +39,22 @@ class MailingListDetailView(LoginRequiredMixin,UserCanUseMailinglist,DetailView)
 class SubscribeToMailingListView(CreateView):
     form_class = SubscriberForm
     template_name = 'mailinglist/subscriber_form.html'
+
+    def get_initial(self):
+        return {
+            'mailing_list': self.kwargs['mailinglist_id']
+        }
+    
+    def get_success_url(self):
+        return reverse('mailinglist:subscriber_thankyou',
+                        kwargs={
+                            'pk': self.object.mailing_list.id,
+                        })
+    
+    def get_context_data(self, **kwargs):
+        ctx = super().get_contex_data(**kwargs)
+        mailing_list_id = self.kwargs['mailinglist_id']
+        ctx['mailing_list'] = get_object_or_404(
+            MailingList,
+            id=mailing_list_id)
+        return ctx
