@@ -34,5 +34,9 @@ urlpatterns = [
         views.ThankYouForSubscribingView.as_view(),
         name='subscriber_thankyou'
     ),
-    
+    path(
+        'subscribe/confirmation/<uuid:pk>',
+        views.ConfirmSubscriptionView.as_view(),
+        name='confirm_subscription'
+    ),
 ]

@@ -1,7 +1,7 @@
 from django.shortcuts import (
     render,
     get_object_or_404,
-    )
+)
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import (
     ListView,
@@ -15,6 +15,7 @@ from django.urls import (
 )
 
 from mailinglist.models import MailingList
+from mailinglist.models import Subscriber
 from mailinglist.forms import (
     MailingListForm,
     SubscriberForm,
@@ -70,3 +71,14 @@ class SubscribeToMailingListView(CreateView):
 class ThankYouForSubscribingView(DetailView):
     model = MailingList
     template_name = "mailinglist/subscrition_thankyou.html"
+
+class ConfirmSubscriptionView(DetailView):
+    model = Subscriber
+    template_name = "mailinglist/confirm_subscription.html"
+
+    def get_object(self, queryset=None):
+        subscriber = super().get_object(queryset=queryset)
+        subscriber.confirmed = True
+        subscriber.save()
+        return subscriber
+    
