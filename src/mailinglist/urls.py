@@ -11,23 +11,28 @@ urlpatterns = [
     ),
     path(
         'new',
-        view.CreateMailingListView.as_view(),
+        views.CreateMailingListView.as_view(),
         name='create_mailinglist'
     ),
     path(
         "<uuid:pk>/delete",
-        view.DeleteMailingListView.as_view(),
+        views.DeleteMailingListView.as_view(),
         name="delete_mailinglist"
     ),
     path(
         "<uuid:pk>/manage",
-        view.MailingListDetailView.as_view(),
+        views.MailingListDetailView.as_view(),
         name="manage_mailinglist"
     ),
     path(
-        '<uuid:mailing_list>/subscribe',
+        '<uuid:mailinglist_id>/subscribe',
         views.SubscribeToMailingListView.as_view(),
         name='subscribe'
+    ),
+    path(
+        '<uuid:pk>/thankyou',
+        views.ThankYouForSubscribingView.as_view(),
+        name='subscriber_thankyou'
     ),
     
 ]

@@ -1,12 +1,19 @@
-from django.shortcuts import render
+from django.shortcuts import (
+    render,
+    get_object_or_404,
+    )
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import (
     ListView,
     CreateView,
     DeleteView,
-    DetailView
+    DetailView,
 )
-from django.urls import reverse_lazy,reverse
+from django.urls import (
+    reverse_lazy,
+    reverse
+)
+
 from mailinglist.models import MailingList
 from mailinglist.forms import (
     MailingListForm,
@@ -58,3 +65,8 @@ class SubscribeToMailingListView(CreateView):
             MailingList,
             id=mailing_list_id)
         return ctx
+
+
+class ThankYouForSubscribingView(DetailView):
+    model = MailingList
+    template_name = "mailinglist/subscrition_thankyou.html"
