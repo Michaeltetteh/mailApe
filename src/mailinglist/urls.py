@@ -39,4 +39,9 @@ urlpatterns = [
         views.ConfirmSubscriptionView.as_view(),
         name='confirm_subscription'
     ),
+    path(
+        'unsubscribe/<uuid:pk>',
+        views.UnsubscribeView.as_view(),
+        name='unsubscribe'
+    ),
 ]
