@@ -49,4 +49,9 @@ urlpatterns = [
         views.CreateMessageView.as_view(),
         name='create_message'
     ),
+    path(
+        'message/<uuid:pk>',
+        views.MessageDetailView.as_view(),
+        name='view_message'
+    ),
 ]

@@ -146,3 +146,7 @@ class CreateMessageView(LoginRequiredMixin, CreateView):
         if not mailing_list.user_can_use_mailing_list(self.request.user):
             raise PermissionDenied()
         return mailing_list
+
+class MessageDetailView(LoginRequiredMixin, UserCanUseMailingList, DetailView):
+    model = Message
+
