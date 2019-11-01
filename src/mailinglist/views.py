@@ -39,7 +39,7 @@ class CreateMailingListView(LoginRequiredMixin, CreateView):
         return {
             'owner': self.request.user.id,
         }
-
+        
 
 class DeleteMailingListView(LoginRequiredMixin, UserCanUseMailingList,DeleteView):
     model = MailingList
